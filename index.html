@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Refiner - Humanize AI Content Without Losing Meaning</title>
+    <meta name="description" content="Advanced AI text humanization powered by dual-engine processing and adaptive humanization. Remove AI signatures naturally.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Fullscreen Background Motion Canvas -->
+    <canvas class="motion-canvas"></canvas>
+
+    <!-- Brand Splash Screen Overlay -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <h1 id="splash-logo" class="splash-logo">
+                <span class="brand-part">EVANS</span><span class="tech-part">Tech</span>
+            </h1>
+            <div class="splash-glow"></div>
+        </div>
+    </div>
+    <script>
+        const isReload = performance.navigation.type === 1 ||
+                         (performance.getEntriesByType &&
+                          performance.getEntriesByType('navigation')[0] &&
+                          performance.getEntriesByType('navigation')[0].type === 'reload');
+        if (sessionStorage.getItem('splash_shown') === 'true' && !isReload) {
+            document.getElementById('splash-screen').style.display = 'none';
+        }
+    </script>
+
+    <header>
+        <nav>
+            <div class="nav-container">
+                <!-- Logo with star icon -->
+                <div class="logo-wrap">
+                    <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64L5.64 18.36"/>
+                    </svg>
+                    <h1 class="logo">Text Refiner</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="pages/faq.html">How It Works</a></li>
+                    <li><a href="pages/privacy.html">Security</a></li>
+                    <li><a href="pages/faq.html">Docs</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </button>
+                    <a href="pages/tool.html" class="btn-get-started">
+                        Get Started
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="home" class="hero">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-bg-grid"></div>
+            <div class="hero-content">
+                <div class="hero-badge">WHAT WE DO</div>
+                <h1>
+                    Humanize AI Content<br>
+                    Without Losing <span class="accent-green">Meaning</span>
+                </h1>
+                <p>Advanced linguistic rewriting powered by dual-engine processing<br>and adaptive humanization.</p>
+                <div class="hero-buttons animate-on-scroll delay-300">
+                    <a href="pages/tool.html" class="cta-button primary">Get Started</a>
+                    <a href="pages/faq.html" class="cta-button secondary">See How It Works</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bento Feature Grid -->
+        <section class="feature-bento" id="features">
+
+            <!-- 01 — Large hero card -->
+            <div class="bento-card bento-01">
+                <div class="bento-top-row">
+                    <span class="bento-num">01</span>
+                    <div class="bento-tag"><span class="dot-accent">●</span> CORE ENGINE</div>
+                </div>
+                <h3 class="bento-title-lg">Dual-Engine<br>Humanizer</h3>
+                <p class="bento-desc">Obfuscate AI signatures with visual Unicode homoglyphs and randomized invisible spacing injects.</p>
+                <a href="pages/tool.html" class="bento-cta">
+                    <span class="bento-cta-arrow">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    Explore Engine
+                </a>
+                <!-- 3D cube decoration -->
+                <div class="bento-deco bento-deco-cube" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 18 L78 34 L50 50 L22 34 Z" stroke="currentColor" stroke-width="1.2" fill="rgba(0,230,118,0.06)"/>
+                        <path d="M78 34 L78 66 L50 82 L50 50 Z" stroke="currentColor" stroke-width="1.2" fill="rgba(0,230,118,0.04)"/>
+                        <path d="M22 34 L50 50 L50 82 L22 66 Z" stroke="currentColor" stroke-width="1.2" fill="rgba(0,230,118,0.02)"/>
+                        <line x1="50" y1="18" x2="50" y2="50" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 2" opacity="0.4"/>
+                        <line x1="22" y1="34" x2="78" y2="34" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 2" opacity="0.3"/>
+                        <circle cx="50" cy="18" r="2.5" fill="currentColor"/>
+                        <circle cx="78" cy="34" r="2.5" fill="currentColor"/>
+                        <circle cx="22" cy="34" r="2.5" fill="currentColor"/>
+                        <circle cx="50" cy="50" r="2" fill="currentColor" opacity="0.6"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 02 — Linguistic Rephraser -->
+            <div class="bento-card bento-02">
+                <div class="bento-top-row-sm">
+                    <span class="bento-num-sm">02</span>
+                    <span class="bento-layer">LINGUISTIC LAYER</span>
+                </div>
+                <h4 class="bento-title-md">Linguistic<br>Rephraser</h4>
+                <p class="bento-desc-sm">Context-aware synonym replacements and transition phrasing to break repetitive AI style cadences.</p>
+                <div class="bento-deco bento-deco-leaf" aria-hidden="true">
+                    <svg viewBox="0 0 52 70" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+                        <path d="M26 8 Q42 18 38 34 Q50 26 44 44 Q36 58 26 64 Q16 58 8 44 Q2 26 14 34 Q10 18 26 8 Z"/>
+                        <path d="M26 8 L26 64" stroke-dasharray="3 2" opacity="0.5"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 03 — Forensic Auto-Typist -->
+            <div class="bento-card bento-03">
+                <div class="bento-top-row-sm">
+                    <span class="bento-num-sm">03</span>
+                    <span class="bento-layer">BEHAVIOR SIMULATION</span>
+                </div>
+                <h4 class="bento-title-md">Forensic<br>Auto-Typist</h4>
+                <p class="bento-desc-sm">Simulate human-like typing with variable delays, mistake-making, and auto-backspaces over hours or weeks.</p>
+                <div class="bento-deco bento-deco-circle" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3"/>
+                        <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
+                        <text x="32" y="39" text-anchor="middle" fill="currentColor" font-size="22" font-weight="700" font-family="Inter,sans-serif">T</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 04 — Security Metrics (wide) -->
+            <div class="bento-card bento-04">
+                <div class="bento-04-inner">
+                    <div class="bento-04-left">
+                        <div class="bento-top-row-sm">
+                            <span class="bento-num-sm">04</span>
+                            <span class="bento-layer"><span class="dot-accent">●</span> SAFETY &amp; ANALYTICS</span>
+                        </div>
+                        <h3 class="bento-title-lg" style="font-size:1.7rem">Security<br>Metrics</h3>
+                        <p class="bento-desc-sm">Evaluate readability via Flesch counters and bypass safety via live SVG AI detection gauges.</p>
+                    </div>
+                    <div class="bento-04-right">
+                        <div class="bento-deco-bars" aria-hidden="true">
+                            <svg viewBox="0 0 90 54" fill="none">
+                                <rect x="4"  y="34" width="11" height="18" rx="1.5" fill="currentColor" opacity="0.35"/>
+                                <rect x="20" y="22" width="11" height="30" rx="1.5" fill="currentColor" opacity="0.55"/>
+                                <rect x="36" y="10" width="11" height="42" rx="1.5" fill="currentColor" opacity="0.75"/>
+                                <rect x="52" y="18" width="11" height="34" rx="1.5" fill="currentColor" opacity="0.55"/>
+                                <rect x="68" y="6"  width="11" height="46" rx="1.5" fill="currentColor" opacity="0.45"/>
+                                <line x1="0" y1="52" x2="90" y2="52" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+                            </svg>
+                        </div>
+                        <a href="pages/tool.html" class="bento-metrics-btn">
+                            <span class="bento-cta-arrow">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                            </span>
+                            View Metrics
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Strip -->
+        <section class="process-strip">
+            <div class="process-step">
+                <div class="process-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 8h10M7 12h7M7 16h5"/></svg>
+                </div>
+                <div class="process-text">
+                    <h5>Input AI Text</h5>
+                    <p>Paste your AI-generated content</p>
+                </div>
+            </div>
+            <div class="process-arrow" aria-hidden="true">
+                <svg width="72" height="14" viewBox="0 0 72 14"><line x1="0" y1="7" x2="58" y2="7" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/><polyline points="54,3 64,7 54,11" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.7"/></svg>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="process-text">
+                    <h5>Refining Process</h5>
+                    <p>Our engines analyze and humanize</p>
+                </div>
+            </div>
+            <div class="process-arrow" aria-hidden="true">
+                <svg width="72" height="14" viewBox="0 0 72 14"><line x1="0" y1="7" x2="58" y2="7" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/><polyline points="54,3 64,7 54,11" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.7"/></svg>
+            </div>
+            <div class="process-step">
+                <div class="process-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <div class="process-text">
+                    <h5>Humanized Output</h5>
+                    <p>Natural, undetectable, and safe</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Snave Tech. Created by Omologe Evans.</p>
+            <ul class="footer-links">
+                <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

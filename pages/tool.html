@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Refiner Tool</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Fullscreen Background Motion Canvas -->
+    <canvas class="motion-canvas"></canvas>
+
+    <!-- Brand Splash Screen Overlay -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <h1 id="splash-logo" class="splash-logo">
+                <span class="brand-part">EVANS</span><span class="tech-part">Tech</span>
+            </h1>
+            <div class="splash-glow"></div>
+        </div>
+    </div>
+    <script>
+        const isReload = performance.navigation.type === 1 || 
+                         (performance.getEntriesByType && 
+                          performance.getEntriesByType('navigation')[0] && 
+                          performance.getEntriesByType('navigation')[0].type === 'reload');
+        if (sessionStorage.getItem('splash_shown') === 'true' && !isReload) {
+            document.getElementById('splash-screen').style.display = 'none';
+        }
+    </script>
+
+    <header>
+        <nav>
+            <div class="nav-container">
+                <!-- Logo with star icon -->
+                <a href="../index.html" class="logo-wrap">
+                    <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64L5.64 18.36"/>
+                    </svg>
+                    <h1 class="logo">Text Refiner</h1>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="#tool" class="nav-active">Tool</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </button>
+                    <a href="tool.html" class="btn-get-started">
+                        Get Started
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="tool" class="tool-section">
+            <h2>Refine Your Text</h2>
+            <p class="subtitle">Convert AI signature structures and zero-width spaces into authentic, humanized prose.</p>
+
+            <div class="dashboard-grid">
+                <!-- AI Gauge Card -->
+                <div class="dashboard-card" id="ai-score-card">
+                    <h4>AI Detection Likelihood</h4>
+                    <div class="gauge-wrapper">
+                        <div class="gauge-svg-container">
+                            <svg width="80" height="80" viewBox="0 0 80 80">
+                                <circle class="gauge-circle-bg" cx="40" cy="40" r="36"></circle>
+                                <circle class="gauge-circle-fill" id="gauge-fill" cx="40" cy="40" r="36"></circle>
+                            </svg>
+                            <div class="gauge-text" id="gauge-text">0%</div>
+                        </div>
+                        <div class="metric-container" style="flex-direction: column; gap: 0.1rem; align-items: flex-start;">
+                            <span class="metric-value" style="font-size: 1.3rem;" id="ai-status">Untested</span>
+                            <span class="metric-label" id="ai-status-desc">Enter text to evaluate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Readability Grade -->
+                <div class="dashboard-card" id="readability-card">
+                    <h4>Readability Grade</h4>
+                    <div class="metric-container">
+                        <span class="metric-value" id="readability-score">--</span>
+                        <span class="metric-label" id="readability-unit">Flesch-Kincaid</span>
+                    </div>
+                    <span class="metric-label" id="readability-desc">Please input some text to analyze</span>
+                </div>
+
+                <!-- Semantic Integrity -->
+                <div class="dashboard-card" id="integrity-card">
+                    <h4>Semantic Integrity</h4>
+                    <div class="metric-container">
+                        <span class="metric-value" id="integrity-score">100%</span>
+                        <span class="metric-label" id="integrity-unit">Preserved</span>
+                    </div>
+                    <span class="metric-label" id="integrity-desc">Linguistic structures fully mapped</span>
+                </div>
+            </div>
+
+            <div class="mode-tabs">
+                <button id="humanizer-tab" class="tab active" data-mode="humanizer">Dual-Engine Humanizer</button>
+                <button id="plagiarism-tab" class="tab" data-mode="plagiarism">Plagiarism Remover</button>
+                <button id="typist-tab" class="tab" data-mode="typist">Forensic Auto-Typist</button>
+            </div>
+
+            <div class="tool-container">
+                <div class="input-section">
+                    <h3>
+                        <span>Input Text</span>
+                        <button id="paste-btn" class="action-btn accent-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Paste</button>
+                    </h3>
+                    <div class="editor-container">
+                        <textarea id="input-text" placeholder="Paste your AI-generated text here, or upload a .txt or .docx file..."></textarea>
+                    </div>
+                    <div class="input-controls">
+                        <input type="file" id="file-upload" accept=".txt,.doc,.docx" style="display: none;">
+                        <button id="upload-btn" class="action-btn">Upload File</button>
+                        <button id="delete-btn" class="action-btn">Clear All</button>
+                    </div>
+                    <div class="stats" id="input-stats">
+                        Characters: 0 | Words: 0 | Sentences: 0
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h3>
+                        <span>Processed Text</span>
+                        <button id="copy-btn" class="action-btn accent-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Copy All</button>
+                    </h3>
+                    <div class="editor-container">
+                        <textarea id="output-text" readonly style="display: none;"></textarea>
+                        <div id="output-preview" class="output-preview">Processed humanized text will appear here. Click on highlighted words to select alternative synonyms.</div>
+                    </div>
+                    <div class="output-controls">
+                        <button id="download-btn" class="action-btn">Download File</button>
+                        <button id="compare-btn" class="action-btn">Compare Details</button>
+                    </div>
+                    <div class="stats" id="output-stats">
+                        Characters: 0 | Words: 0 | Sentences: 0
+                    </div>
+                </div>
+
+                <div class="controls-section">
+                    <div class="settings-panel">
+                        <div class="settings-column">
+                            <span class="settings-title">Linguistic Engine Settings</span>
+                            
+                            <!-- Slider 1: Homoglyph Density -->
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <span>Homoglyph Substitution Strength</span>
+                                    <span class="slider-val" id="homoglyph-val">25%</span>
+                                </div>
+                                <input type="range" id="homoglyph-strength" class="slider-input" min="0" max="100" value="25">
+                            </div>
+
+                            <!-- Toggle 1: Homoglyphs -->
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <span class="toggle-label">Visual Homoglyphs</span>
+                                    <span class="toggle-desc">Replace characters with visual Unicode duplicates</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="homoglyph-toggle" checked>
+                                    <span class="slider-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-column">
+                            <span class="settings-title">Encoding Engine Settings</span>
+                            
+                            <!-- Slider 2: Invisible Space Density -->
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <span>Invisible Spacing Density</span>
+                                    <span class="slider-val" id="invisible-val">30%</span>
+                                </div>
+                                <input type="range" id="invisible-strength" class="slider-input" min="0" max="100" value="30">
+                            </div>
+
+                            <!-- Toggle 2: Invisible Spaces -->
+                            <div class="toggle-group">
+                                <div class="toggle-info">
+                                    <span class="toggle-label">Invisible Character Embedding</span>
+                                    <span class="toggle-desc">Inject hidden bytes between letters</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="invisible-toggle" checked>
+                                    <span class="slider-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="process-btn" class="process-btn">Humanize &amp; Refine Content</button>
+                    
+                    <div id="progress" class="progress" style="display: none;">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <span class="progress-status" id="progress-status">Initializing humanization engine...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forensic Auto-Typist Container (Hidden by default) -->
+            <div id="typist-container" class="typist-container" style="display: none; margin-top: 1rem;">
+                <div class="typist-workspace">
+                    <!-- Sidebar Controls -->
+                    <div class="typist-sidebar">
+                        <div class="sidebar-card">
+                            <span class="settings-title" style="font-size: 1.1rem; font-weight: 700; display: block; margin-bottom: 1rem;">Simulation Timeline</span>
+                            <div class="form-group" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.4rem;">
+                                <label for="typist-duration" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Retyping Timeframe</label>
+                                <select id="typist-duration" class="typist-select">
+                                    <option value="1">1 Hour (Simulated human velocity)</option>
+                                    <option value="4">4 Hours (Standard writing session)</option>
+                                    <option value="12">12 Hours (Half-day drafting interval)</option>
+                                    <option value="24">24 Hours (Full-day gradual typing)</option>
+                                    <option value="72">3 Days (Deep research timeline)</option>
+                                    <option value="168">7 Days (1 Week professional draft)</option>
+                                    <option value="336">14 Days (2 Weeks academic review)</option>
+                                    <option value="672">28 Days (4 Weeks comprehensive thesis)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="slider-group" style="margin-top: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div class="slider-header" style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                                    <span>Simulation Dilation Speed</span>
+                                    <span class="slider-val" id="dilation-val" style="color: var(--brand-primary); font-weight: 700;">1x (Real-time)</span>
+                                </div>
+                                <input type="range" id="dilation-speed" class="slider-input" min="1" max="1000" value="1">
+                                <span class="toggle-desc">Accelerates typing on screen. Keeps timestamps accurate to original timeframe.</span>
+                            </div>
+
+                            <div class="slider-group" style="margin-top: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div class="slider-header" style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                                    <span>Simulated Error Rate</span>
+                                    <span class="slider-val" id="error-rate-val" style="color: var(--brand-primary); font-weight: 700;">4%</span>
+                                </div>
+                                <input type="range" id="error-rate" class="slider-input" min="0" max="15" value="4">
+                                <span class="toggle-desc">Random mistakes corrected automatically via Backspace.</span>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-card status-card">
+                            <span class="settings-title" style="font-size: 1.1rem; font-weight: 700; display: block; margin-bottom: 1rem;">Execution Dashboard</span>
+                            <div class="status-metric">
+                                <span class="status-metric-label">Status:</span>
+                                <span class="status-metric-val" id="typist-status" style="color: var(--brand-primary); font-weight: 700;">Idle</span>
+                            </div>
+                            <div class="status-metric">
+                                <span class="status-metric-label">Simulated Elapsed:</span>
+                                <span class="status-metric-val" id="typist-elapsed">0h 0m 0s</span>
+                            </div>
+                            <div class="status-metric">
+                                <span class="status-metric-label">Typing Velocity:</span>
+                                <span class="status-metric-val" id="typist-wpm">0 WPM</span>
+                            </div>
+                            <div class="status-metric" style="border-bottom: none;">
+                                <span class="status-metric-label">Mistakes Corrected:</span>
+                                <span class="status-metric-val" id="typist-errors">0</span>
+                            </div>
+                            
+                            <div class="progress-bar-container" style="height: 6px; margin-top: 0.8rem; background-color: var(--border-color); border-radius: 4px; overflow: hidden;">
+                                <div id="typist-progress-bar" class="progress-bar" style="width: 0%; height: 100%; background: var(--brand-primary); transition: width 0.2s;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.3rem;">
+                                <span>Progress</span>
+                                <span id="typist-progress-pct">0%</span>
+                            </div>
+                            
+                            <!-- Typist Cadence Rhythm Oscilloscope -->
+                            <div class="typist-rhythm-wrapper">
+                                <div class="typist-rhythm-title">
+                                    <span>Cadence Rhythm Pulse</span>
+                                    <span style="font-size: 0.75rem; opacity: 0.8;">Keystroke Dynamics</span>
+                                </div>
+                                <canvas class="typist-cadence-canvas" width="240" height="50"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-card button-grid">
+                            <button id="typist-play" class="action-btn accent-btn" style="justify-content: center; width: 100%; padding: 0.75rem; font-weight: 700; border-radius: 500px !important;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;flex-shrink:0"><polygon points="5 3 19 12 5 21 5 3"/></svg>Start Simulation
+                            </button>
+                            <button id="typist-pause" class="action-btn" style="justify-content: center; width: 100%; padding: 0.75rem; font-weight: 700; border-radius: 500px !important;" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;flex-shrink:0"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>Pause
+                            </button>
+                            <button id="typist-stop" class="action-btn" style="justify-content: center; width: 100%; padding: 0.75rem; font-weight: 700; border-radius: 500px !important;" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>Reset Session
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Editor Pane -->
+                    <div class="typist-editor-pane">
+                        <div class="editor-toolbar">
+                            <button class="toolbar-btn" data-cmd="bold">B</button>
+                            <button class="toolbar-btn" data-cmd="italic">I</button>
+                            <button class="toolbar-btn" data-cmd="underline">U</button>
+                            <button class="toolbar-btn" data-cmd="strikeThrough">S</button>
+                            <div class="toolbar-divider"></div>
+                            <button class="toolbar-btn" data-cmd="insertUnorderedList">• List</button>
+                            <button class="toolbar-btn" data-cmd="insertOrderedList">1. List</button>
+                            <div class="toolbar-divider"></div>
+                            <button class="toolbar-btn" data-cmd="formatBlock" data-val="h1" style="font-weight: 800;">H1</button>
+                            <button class="toolbar-btn" data-cmd="formatBlock" data-val="h2" style="font-weight: 700;">H2</button>
+                            <button class="toolbar-btn" data-cmd="formatBlock" data-val="p">Text</button>
+                            <div class="toolbar-divider"></div>
+                            <input type="file" id="typist-file-upload" accept=".txt,.doc,.docx" style="display: none;">
+                            <button id="typist-upload-btn" class="action-btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Upload Document</button>
+                        </div>
+                        
+                        <div id="typist-editor" class="rich-editor" contenteditable="true" placeholder="Upload a document or begin typing... the auto-humanizer simulation will input text characters here dynamically."></div>
+                        
+                        <div class="editor-footer">
+                            <div class="editor-footer-stats">
+                                <span id="typist-char-count">Characters: 0</span> | <span id="typist-word-count">Words: 0</span>
+                            </div>
+                            <div class="editor-footer-controls">
+                                <button id="typist-download-doc" class="action-btn accent-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" disabled>Download DOCX</button>
+                                <button id="typist-download-log" class="action-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" disabled>Export Log</button>
+                                <button id="typist-download-cert" class="action-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" disabled>Certificate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="compare-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Linguistic Differences</h3>
+                    <div class="compare-container">
+                        <div class="compare-original">
+                            <h4>Original Source</h4>
+                            <pre id="compare-original-text"></pre>
+                        </div>
+                        <div class="compare-processed">
+                            <h4>Refined Composition (Word Diffs)</h4>
+                            <pre id="compare-processed-text"></pre>
+                        </div>
+                    </div>
+                    <div id="byte-diff" class="byte-diff">
+                        <h4>Security & Obfuscation Metrics</h4>
+                        <p id="diff-info">Run the humanizing refiner to calculate structural and character mutations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Snave Tech. Created by Omologe Evans.</p>
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

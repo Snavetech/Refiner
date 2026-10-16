@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Text Refiner</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Fullscreen Background Motion Canvas -->
+    <canvas class="motion-canvas"></canvas>
+
+    <!-- Brand Splash Screen Overlay -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <h1 id="splash-logo" class="splash-logo">
+                <span class="brand-part">EVANS</span><span class="tech-part">Tech</span>
+            </h1>
+            <div class="splash-glow"></div>
+        </div>
+    </div>
+    <script>
+        const isReload = performance.navigation.type === 1 || 
+                         (performance.getEntriesByType && 
+                          performance.getEntriesByType('navigation')[0] && 
+                          performance.getEntriesByType('navigation')[0].type === 'reload');
+        if (sessionStorage.getItem('splash_shown') === 'true' && !isReload) {
+            document.getElementById('splash-screen').style.display = 'none';
+        }
+    </script>
+
+    <header>
+        <nav>
+            <div class="nav-container">
+                <!-- Logo with star icon -->
+                <a href="../index.html" class="logo-wrap">
+                    <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64L5.64 18.36"/>
+                    </svg>
+                    <h1 class="logo">Text Refiner</h1>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="tool.html">Tool</a></li>
+                    <li><a href="#faq" class="nav-active">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </button>
+                    <a href="tool.html" class="btn-get-started">
+                        Get Started
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="faq" class="faq-section">
+            <div class="privacy-header-decoration animate-on-scroll delay-100" style="margin-bottom: 1.5rem;">
+                <svg width="80" height="80" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4" style="color: var(--brand-primary); opacity: 0.85;"></circle>
+                    <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="0.8" style="color: var(--brand-primary); opacity: 0.4;"></circle>
+                    <path d="M32 18V26M32 38V46M18 32H26M38 32H46" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color: var(--brand-primary); opacity: 0.7;"></path>
+                    <path d="M26 26 L38 38 M38 26 L26 38" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" style="color: var(--brand-primary); opacity: 0.5;"></path>
+                    <circle cx="32" cy="32" r="4" fill="var(--brand-primary)"></circle>
+                </svg>
+            </div>
+            <h2 class="animate-on-scroll">Frequently Asked Questions</h2>
+            <p class="animate-on-scroll delay-100">Got questions about Text Refiner? We have answers. Explore the inner details of our humanizing engines.</p>
+            
+            <div class="faq-container">
+                <!-- FAQ 01 -->
+                <div class="faq-item animate-on-scroll delay-100">
+                    <div class="faq-item-header">
+                        <div class="faq-item-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                                <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64L5.64 18.36"/>
+                            </svg>
+                        </div>
+                        <h3>What is Text Refiner?</h3>
+                    </div>
+                    <p>Text Refiner is a tool that helps make AI-generated or copied content appear more natural and unique by subtly altering its structure using invisible encoding.</p>
+                </div>
+
+                <!-- FAQ 02 -->
+                <div class="faq-item animate-on-scroll delay-200">
+                    <div class="faq-item-header">
+                        <div class="faq-item-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3>How does the Humanizer work?</h3>
+                    </div>
+                    <p>The Humanizer refines AI-generated content to make it appear more natural and unique.</p>
+                </div>
+
+                <!-- FAQ 03 -->
+                <div class="faq-item animate-on-scroll delay-300">
+                    <div class="faq-item-header">
+                        <div class="faq-item-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </div>
+                        <h3>What about the Plagiarism Remover?</h3>
+                    </div>
+                    <p>The Plagiarism Remover performs a soft rewrite by changing phrasing, using synonyms, and restructuring sentences to improve originality and readability.</p>
+                </div>
+
+                <!-- FAQ 04 -->
+                <div class="faq-item animate-on-scroll delay-100">
+                    <div class="faq-item-header">
+                        <div class="faq-item-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3>Is my text data stored?</h3>
+                    </div>
+                    <p>No, all processing happens locally in your browser. Your text is not sent to any server or stored anywhere.</p>
+                </div>
+
+                <!-- FAQ 05 -->
+                <div class="faq-item animate-on-scroll delay-200">
+                    <div class="faq-item-header">
+                        <div class="faq-item-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3>What file formats are supported?</h3>
+                    </div>
+                    <p>You can upload .txt and .docx files, and download processed results in the same formats.</p>
+                </div>
+
+                <!-- FAQ 06 -->
+                <div class="faq-item animate-on-scroll delay-300">
+                    <div class="faq-item-header">
+                        <div class="faq-item-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                <path d="M6 12v5c0 2 2.67 3 6 3s6-1 6-3v-5"/>
+                            </svg>
+                        </div>
+                        <h3>Can I use this for academic purposes?</h3>
+                    </div>
+                    <p>While the tool can help refine text, we encourage ethical use. Always cite sources properly and avoid using it to misrepresent work as original.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Snave Tech. Created by Omologe Evans.</p>
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
